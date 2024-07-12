@@ -54,10 +54,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('woman', _('Woman')),
     ]
     sex = models.CharField(max_length=5, choices=SEX_CHOICES)
-    bio = models.CharField(max_length=1000, default=False)
+    bio = models.CharField(max_length=1000, default=False,blank=True, null=True)
     phone_number = models.CharField(validators=[PHONE_REGEX], max_length=21, unique=True, default="+998931112233",blank=True, null=True)
     email = models.EmailField(unique=True, blank=True, null=True)
-    join_date = models.DateTimeField(default=timezone.now())
+    join_date = models.DateTimeField(default=timezone.now)
     follow = models.ManyToManyField('self', symmetrical=False, related_name='user_follow', blank=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='user_followers', blank=True)
     avatar = models.ImageField(upload_to='accounts/avatars/', default="defaultavatar/avatar.jpg")
