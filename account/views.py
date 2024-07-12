@@ -14,6 +14,7 @@ from django.db.models import Q
 from .utils import unhash_token
 
 
+
 class UserRegistrationAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
@@ -38,6 +39,9 @@ class UserRegistrationAPIView(generics.CreateAPIView):
         }
 
         return Response(token_data, status=status.HTTP_201_CREATED)
+
+
+
 
 
 class UserSearchView(generics.ListAPIView):

@@ -1,10 +1,13 @@
 from rest_framework import serializers
 from .models import User
+from drf_extra_fields.fields import Base64ImageField
+
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
     is_admin = serializers.BooleanField(write_only=False, default=False, required=False)
+    avatar = Base64ImageField(allow_null=True, required=False)  # Ensure this field is correct
 
     class Meta:
         model = User
@@ -22,6 +25,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         validated_data.pop('confirm_password')
         user = User.objects.create_user(**validated_data)
         return user
+
+
+
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,7 +48,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         if 'avatar' in validated_data:
             instance.avatar = validated_data['avatar']
         elif not instance.avatar:
-            instance.avatar = 'accounts/avatars/avatar.jpg'
+            instance.avatar = 'account/avatar/avatar.jpg'
         instance.save()
         return instance
 
