@@ -11,6 +11,7 @@ PHONE_REGEX = RegexValidator(
     message="Please provide a valid phone number",
 )
 
+
 class UserManager(BaseUserManager):
     def create_user(self, last_name, username, email, password=None, **extra_fields):
 
@@ -59,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     join_date = models.DateTimeField(default=timezone.now())
     follow = models.ManyToManyField('self', symmetrical=False, related_name='user_follow', blank=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='user_followers', blank=True)
-    avatar = models.ImageField(upload_to='accounts/avatars/', default='defaultavatar/avatar.jpg')
+    avatar = models.ImageField(upload_to='accounts/avatars/', default="defaultavatar/avatar.jpg")
     avatar_thumbnail = models.ImageField(upload_to='avatar/thumbnails/', blank=True, null=True)
     back_image = models.ImageField(upload_to='back_images/', blank=True, null=True)
     posts = models.IntegerField(default=0)
@@ -78,11 +79,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_admin
 
-
-
-
-
-
+    # @property
+    # def avatar_url(self):
+    #     if self.avatar:
+    #         return self.avatar.url
+    #     return static('defaultavatar/avatar.jpg')
 
 
 
