@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.templatetags.static import static
 
 PHONE_REGEX = RegexValidator(
-    regex=r"^\+998([0-9][0-9]|99)\d{7}$",
+    # regex=r"^\+998([0-9][0-9]|99)\d{7}$",
     message="Please provide a valid phone number",
 )
 
@@ -46,8 +46,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
     sex = models.CharField(max_length=5, choices=SEX_CHOICES)
     bio = models.CharField(max_length=1000, default=False,blank=True, null=True)
-    phone_number = models.CharField(validators=[PHONE_REGEX], max_length=21, unique=True, default="+998931112233", blank=True, null=True)
-    email = models.EmailField(unique=True, blank=True, null=True)
+    phone_number = models.CharField(validators=[PHONE_REGEX],
+                                    max_length=21,
+                                    unique=True,
+                                    blank=True,
+                                    null=True)
+    email = models.EmailField( blank=True, null=True)
     join_date = models.DateTimeField(default=timezone.now)
     follow = models.ManyToManyField('self', symmetrical=False, related_name='user_follow', blank=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='user_followers', blank=True)
