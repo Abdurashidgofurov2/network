@@ -26,6 +26,8 @@ class UserRegistrationAPIView(generics.CreateAPIView):
         if User.objects.filter(username=data.get('username')).exists():
             raise ValidationError({'username': 'This username is already taken'})
 
+
+
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()

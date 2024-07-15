@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.templatetags.static import static
 
 PHONE_REGEX = RegexValidator(
-    # regex=r"^\+998([0-9][0-9]|99)\d{7}$",
+    regex=r"^\+998([0-9][0-9]|99)\d{7}$",
     message="Please provide a valid phone number",
 )
 
@@ -74,11 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_admin
 
-    # @property
-    # def avatar_url(self):
-    #     if self.avatar:
-    #         return self.avatar.url
-    #     return static('defaultavatar/avatar.jpg')
+
 
 
 
