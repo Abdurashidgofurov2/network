@@ -6,14 +6,23 @@ from core import settings
 from account.models import *
 
 
-# class UploadedFile(models.Model):
-#     file = models.FileField(upload_to='uploads/')
-#     uploaded_at = models.DateTimeField(auto_now_add=True)
-#
-#     @property
-#     def file_url(self):
-#         # Assuming MEDIA_URL is '/media/'
-#         return f"{settings.MEDIA_URL}{self.file.name}"
+class AudioFile(models.Model):
+    file = models.FileField(upload_to='audio/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file.name
+
+
+
+class UploadedFile(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def file_url(self):
+        # Assuming MEDIA_URL is '/media/'
+        return f"{settings.MEDIA_URL}{self.file.name}"
 
 
 class Like(models.Model):
@@ -52,3 +61,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.user} on {self.post}'
+
+
