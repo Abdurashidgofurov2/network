@@ -11,3 +11,6 @@ urlpatterns = [
     path('files/', FileListView.as_view(), name='file-list'),
     path('upload-audio/', AudioFileUploadView.as_view(), name='upload-audio'),
 ]
+
+
+# wetbov4bvyv4to4u23g
