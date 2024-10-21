@@ -39,20 +39,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=20)
     last_name = models.CharField(max_length=100)
     family_name = models.CharField(max_length=250, blank=True, null=True)
-    old = models.IntegerField(default=0)
+    old = models.IntegerField(default=0, blank=True, null=True)
     SEX_CHOICES = [
         ('man', _('Man')),
         ('woman', _('Woman')),
     ]
-    sex = models.CharField(max_length=5, choices=SEX_CHOICES)
-    bio = models.CharField(max_length=1000, default=False,blank=True, null=True)
+    sex = models.CharField(max_length=5, choices=SEX_CHOICES, blank=True, null=True)
+    bio = models.CharField(max_length=1000, default=False, blank=True, null=True)
     phone_number = models.CharField(validators=[PHONE_REGEX],
                                     max_length=21,
                                     unique=True,
                                     blank=True,
                                     null=True)
-    email = models.EmailField( blank=True, null=True)
-    join_date = models.DateTimeField(default=timezone.now)
+    email = models.EmailField(blank=True, null=True)
+    join_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
     follow = models.ManyToManyField('self', symmetrical=False, related_name='user_follow', blank=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='user_followers', blank=True)
     avatar = models.ImageField(upload_to='accounts/avatars/', default="defaultavatar/avatar.jpg")
