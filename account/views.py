@@ -89,8 +89,10 @@ class CheckUsernameView(generics.GenericAPIView):
 
 
 class UserListView(generics.ListAPIView):
-    queryset = User.objects.all()
     serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(username=self.request.user.username).order_by('-join_date')
 
 
 

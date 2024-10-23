@@ -38,6 +38,7 @@ class FileListView(generics.ListAPIView):
 class PostCreateAPIView(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostCreateSerializer
+    parser_classes = (MultiPartParser, FormParser)
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -80,3 +81,9 @@ class PostDetailAPIView(generics.RetrieveAPIView):
     serializer_class = PostSerializer
     lookup_field = 'uid'
     permission_classes = [permissions.IsAuthenticated]
+
+
+class AllPostListAPIView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    def get_queryset(self):
+        return Post.objects.filter(user=self.request.user).order_by('-upload_time')
